@@ -283,7 +283,7 @@
           document.getElementById('infoContainerRoute').style.background = 'rgba(256,256,256,0.4)';
             var cityName = location.hash.replace('#', '');
             var xmlhttp = new XMLHttpRequest();
-            var url = "http://api.openweathermap.org/data/2.5/weather?APPID=55241e2b9ceaf717de252a51518e4f47&q=" + searchedCity + '&units=metric';
+            var url = "http://api.openweathermap.org/data/2.5/weather?APPID=55241e2b9ceaf717de252a51518e4f47&q=" + cityName + '&units=metric';
 
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
