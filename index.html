@@ -3,127 +3,8 @@
 <head>
   <meta charset='utf-8'>
   <title>Ractive test</title>
-    <style>
-        body, html{
-            margin: 0;
-            width:100%;
-            height:100%;
-            font-family: sans-serif;
-        }
-        .image-top{
-            background: url(images/image_top.jpg);
-            width:100%;
-            height: 100%;
-            margin-top: -10px;
-        }
-        .image-top h1{
-            width:100%;
-            text-align: center;
-            color: white;
-            position: absolute;
-            top: 135px;
-            font-size: 60px;
-            font-family: sans-serif;
-            font-weight: lighter;
-        }
-        .image-top p.description{
-            width:100%;
-            text-align: center;
-            color: white;
-            position: absolute;
-            top: 226px;
-            font-family: sans-serif;
-            font-size:18px;
-        }
-        
-        #buttonScrollDown{
-            top: 269px;
-            padding:10px;
-            width:576px;
-            left:0;
-            right:0;
-            margin:0 auto;
-            position: absolute;
-        }
-        #fields{
-            padding:15px;
-        }
-        
-        #cityText{
-            width:542px;
-            height:30px;
-        }
-        ::-webkit-input-placeholder {
-            font-style: italic;
-        }
-
-        :-moz-placeholder { /* Firefox 18- */
-            font-style: italic;
-        }
-
-        ::-moz-placeholder {  /* Firefox 19+ */
-            font-style: italic;  
-        }
-
-        :-ms-input-placeholder {  
-            font-style: italic;  
-        }
-        
-        input[type='submit']{
-            float: right;
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-            cursor: pointer;
-            height: 30px;
-            width: 120px;
-            margin-top: 12px;
-        }
-        
-        input[type='submit']:hover{
-            text-decoration: underline;
-        }
-        
-        #history{
-            margin-top:40px;
-        }
-        
-        #history select{
-            margin-left:12px;
-            width:200px;
-        }
-        
-        #infoContainer{
-            text-align: center;
-            padding: 8px;
-            position: absolute;
-            top: 454px;
-            margin: 0 auto;
-            left: 0;
-            right: 0;
-            width: 270px;
-            border-radius: 10px;
-        }
-        
-        #infoContainerRoute{
-            text-align: center;
-            padding: 8px;
-            position: absolute;
-            top: 320px;
-            margin: 0 auto;
-            left: 0;
-            right: 0;
-            width:270px;
-            border-radius: 10px;
-        }
-        
-        h2{
-            font-size:30px;
-        }
-        
-        
-    
-    </style>
+    <link rel="stylesheet" type="text/css" href="assets/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
@@ -132,11 +13,11 @@
     <p class='description'>A very simple and fun application which allows you to find out the weather anywhere in the world.</p>
     <div id="buttonScrollDown">
           <div id='fields' style='display:none'>
-        <input type='text' name='city' id='cityText' placeholder="Insert city"> 
-        <input type='submit' value='Check weather' onclick='onclickFunctions()'>
+        <input type='text' name='city' id='cityText' placeholder="Insert city" class='form-control'>
+        <input type='submit' value='Check weather' onclick='onclickFunctions()' class="btn btn-success">
         <br/>
         <br/>
-              <div id='history'><span style="color:white">Recent searches:</span><select id='recentSearches' onchange='getWeatherSelect();updateRecentSearchesOnSelectChange();document.getElementById("infoContainer").style.background = "rgba(256,256,256,0.4)";'></select>
+              <div id='history'><span style="color:white">Recent searches:</span><select class="form-control" id='recentSearches' onchange='getWeatherSelect();updateRecentSearchesOnSelectChange();document.getElementById("infoContainer").style.background = "rgba(256,256,256,0.4)";'></select>
                   </div>
   </div>  
     </div>
@@ -145,8 +26,8 @@
   <div id='infoContainerRoute'>
         <script id='infoTemplateRoute' type='text/ractive' >
             {{#if hash}}
-            <h2 style='margin-top:10px'>{{city}}</h2>
-            <h2 style='margin-top:-22px'>{{temperature}} &#8451</h2>
+            <h2 style='margin-top:10px'>{{city}} &nbsp;<img src="{{icon}}"></h2>
+            <p class="temperature"><span style='font-weight: bolder'>{{temperature}} &#8451</span></p>
             <p style='margin-top:-15px'>Weather condition: {{info}}</p>
             <p>Weather description: {{info_description}}</p>
             {{/if}}
@@ -158,184 +39,16 @@
     
   <div id='infoContainer'>
         <script id='infoTemplate' type='text/ractive'>
-            <h2 id='cityWithoutRoute' style='margin-top:10px'>{{city}}</h2>
-            <h2 style='margin-top:-22px'>{{temperature}} &#8451</h2>
-            <p style='margin-top:-15px'>Weather condition: {{info}}</p>
-            <p>Weather description: {{info_description}}</p>
+            <h2 id='cityWithoutRoute' style='margin-top:10px'>{{city}} &nbsp; <img src="{{icon}}"></h2>
+            <p class="temperature"><span style='font-weight: bolder'>{{temperature}} &#8451</span></p>
+            <p style='margin-top:-15px'>Weather condition: <span style='font-weight: bolder'>{{info}}</span></p>
+            <p>Weather description: <span style='font-weight: bolder'>{{info_description}}</span></p>
         </script>
   </div>
       </div>
     
   <script src='http://cdn.ractivejs.org/latest/ractive.min.js'></script>
 
-  <script>
-      var myArr, ractive;
-      var MyRactive = Ractive.extend({
-            template: '#infoTemplate'
-      });
-      var MyRactive2 = Ractive.extend({
-            template: '#infoTemplateRoute'
-      });
-      
-      
-      clearTextbox();
-      showDirectlyWeatherInfo();
-      getWeatherRoute();
-      if(localStorage.getItem("history") !== null)
-        updateHistoryFromLocalstorage();
-      
-      
-      
-      /* Get weather information using openweather api */
-      function getWeather(){
-        var searchedCity = document.getElementById('cityText').value;
-        var xmlhttp = new XMLHttpRequest();
-        var url = "http://api.openweathermap.org/data/2.5/weather?APPID=55241e2b9ceaf717de252a51518e4f47&q=" + searchedCity + '&units=metric';
-
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                myArr = JSON.parse(xmlhttp.responseText);
-                ractive = new MyRactive({
-                el: '#infoContainer',
-                data: { city: myArr.name + ", " + myArr.sys.country, temperature: myArr.main.temp, info: myArr.weather[0].main, info_description: myArr.weather[0].description}
-        });
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
-          
-
-      }
-      
-      
-      
-      /* Get weather information using openweather api when clicking on select options*/
-      function getWeatherSelect(){
-        var searchedCity = document.getElementById('recentSearches').value;
-        var xmlhttp = new XMLHttpRequest();
-        var url = "http://api.openweathermap.org/data/2.5/weather?APPID=55241e2b9ceaf717de252a51518e4f47&q=" + searchedCity + '&units=metric';
-
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                myArr = JSON.parse(xmlhttp.responseText);
-                ractive = new MyRactive({
-                el: '#infoContainer',
-                data: { city: myArr.name + ", " + myArr.sys.country, temperature: myArr.main.temp, info: myArr.weather[0].main, info_description: myArr.weather[0].description}
-        });
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
-          
-
-      };
-      
-      
-      
-      /* Updates dropdown when searching with the text input */
-      function updateRecentSearches(){
-        var select = document.getElementById('recentSearches');
-        var inputValue = document.getElementById('cityText').value;
-        var option = document.createElement('option');
-        option.text = inputValue;
-        option.selected = true;
-        option.value = inputValue;
-        for(var i = 0; i < select.length; i++)
-            if(select.options[i].text === option.text){
-                select.remove(i);
-            }
-        select.add(option, select[0]);
-        saveOptionsInLocalstorage(select);
-      }
-      
-      
-      
-      /* Updates dropdown when searching with the select */
-      function updateRecentSearchesOnSelectChange(){
-        var select = document.getElementById('recentSearches');
-        var inputValue = document.getElementById('recentSearches').value;
-        var option = document.createElement('option');
-        option.text = inputValue;
-        option.selected = true;
-        option.value = inputValue;
-        for(var i = 0; i < select.length; i++)
-            if(select.options[i].text === option.text){
-                select.remove(i);
-            }
-        select.add(option, select[0]);
-        saveOptionsInLocalstorage(select);
-      }
-      
-      
-      
-      /*FUnctions to call when clicking the search button*/
-      function onclickFunctions(){
-          getWeather();
-          updateRecentSearches();
-          document.getElementById('infoContainer').style.background = 'rgba(256,256,256,0.4)';
-      }
-      
-      
-      
-      /*Get weather when having a city as a hash*/
-      function getWeatherRoute(){
-        if(location.hash !== ''){
-          document.getElementById('infoContainerRoute').style.background = 'rgba(256,256,256,0.4)';
-            var cityName = location.hash.replace('#', '');
-            var xmlhttp = new XMLHttpRequest();
-            var url = "http://api.openweathermap.org/data/2.5/weather?APPID=55241e2b9ceaf717de252a51518e4f47&q=" + cityName + '&units=metric';
-
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    myArr = JSON.parse(xmlhttp.responseText);
-                    ractive = new MyRactive2({
-                    el: '#infoContainerRoute',
-                    data: { city: myArr.name + ", " + myArr.sys.country, temperature: myArr.main.temp, info: myArr.weather[0].main, info_description: myArr.weather[0].description, hash: true}
-            });
-                }
-            }
-            xmlhttp.open("GET", url, true);
-            xmlhttp.send();
-            }
-      }
-      
-      
-      
-      
-      function showDirectlyWeatherInfo(){
-        if(location.hash == ''){
-            document.getElementById('fields').style.display = 'block';
-        }
-      }
-      
-      
-      
-      /*Updates dropdown when starting the app from localstorage*/
-      function updateHistoryFromLocalstorage(){
-        var select = document.getElementById('recentSearches');
-        var optionHistory = JSON.parse(localStorage['history']);
-        for(var i in optionHistory){
-            var option = document.createElement('option');
-            option.text = optionHistory[i];
-            select.add(option);
-        }
-      }
-      
-      /*Save options in localstorage*/
-      function saveOptionsInLocalstorage(select){
-        var array = [];
-        for(var i = 0; i < select.length; i++){
-            array.push(select.options[i].text);;
-        }
-        localStorage['history'] = JSON.stringify(array);
-      }
-      
-      function clearTextbox(){
-        document.getElementById("cityText").value == '';
-      }
-      
-      
-      
-  </script>
+  <script src='assets/main.js'></script>
 </body>
 </html>
