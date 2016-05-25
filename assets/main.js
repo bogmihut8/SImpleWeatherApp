@@ -9,6 +9,17 @@ var MyRactive2 = Ractive.extend({
     template: '#infoTemplateRoute'
 });
 
+jQuery(".image-top").vegas({
+    delay: 10000,
+    slides: [
+        { src: "/SImpleWeatherApp/assets/images/slide1.jpg" },
+        { src: "/SImpleWeatherApp/assets/images/slide2.jpg" },
+        { src: "/SImpleWeatherApp/assets/images/slide3.jpg" },
+        { src: "/SImpleWeatherApp/assets/images/slide4.jpg" },
+        { src: "/SImpleWeatherApp/assets/images/slide5.jpg" }
+    ],
+    overlay: '/SImpleWeatherApp/assets/overlays/04.png'
+});
 
 clearTextbox();
 showDirectlyWeatherInfo();

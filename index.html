@@ -4,13 +4,14 @@
   <meta charset='utf-8'>
   <title>Ractive test</title>
     <link rel="stylesheet" type="text/css" href="assets/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/vegas.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
   <div class="image-top">
-    <h1>Weather Simple App</h1>  
-    <p class='description'>A very simple and fun application which allows you to find out the weather anywhere in the world.</p>
+    <h1 class="col-sm-8">Weather Simple App</h1>
+    <p class='description col-sm-8'>A very simple and fun application which allows you to find out the weather anywhere in the world.</p>
     <div id="buttonScrollDown">
           <div id='fields' style='display:none'>
         <input type='text' name='city' id='cityText' placeholder="Insert city" class='form-control'>
@@ -48,7 +49,9 @@
       </div>
     
   <script src='http://cdn.ractivejs.org/latest/ractive.min.js'></script>
-
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src='assets/vegas.min.js'></script>
   <script src='assets/main.js'></script>
+
 </body>
 </html>
